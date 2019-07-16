@@ -1,49 +1,17 @@
-package com.uniyaz.note.domain;
+package com.uniyaz.note.dto;
 
-import org.hibernate.annotations.ForeignKey;
-import org.hibernate.envers.Audited;
-
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
  * @author Kübra VARICI
  */
-
-@Entity
-@Audited
-@Table(name = "NOTE")
-public class Note {
-
-    @Id
-    @Column
-    @SequenceGenerator(name = "generator", sequenceName = "NOTE_ID_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "generator")
+public class NoteDto {
     private Long id;
-
-    @Column
-    private Long versiyon;
-
-    @Size(max = 200)
-    @Column(length = 200)
     private String konu;
-
-    @Lob
-    @Column
     private byte[] icerik;
-
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
     private Date kayitTarihi;
-
-    @Column
     private Long begenilmeSayisi;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USER")
-    @ForeignKey(name = "FK_NOTE_USER")
-    private User user;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -85,11 +53,11 @@ public class Note {
         this.begenilmeSayisi = begenilmeSayisi;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
