@@ -1,55 +1,20 @@
-package com.uniyaz.note.domain;
+package com.uniyaz.note.dto;
 
-import org.hibernate.envers.Audited;
-
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
  * @author Gökçe DOĞANAY
  * @since 0.0.1
  */
-@Entity
-@Audited
-@Table(name = "USER")
-public class User {
+public class UserDto {
 
-    @Id
-    @SequenceGenerator(name = "generator", sequenceName = "USER_ID_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "generator")
-    @Column
     private Long id;
-
-    @Version
-    private Long versiyon;
-
-    @Size(max = 100)
-    @Column(length = 100)
     private String ad;
-
-    @Size(max = 100)
-    @Column(length = 100)
     private String soyad;
-
-    @Size(max = 100)
-    @Column(length = 100)
     private String kullaniciAdi;
-
-    @Size(max = 100)
-    @Column(length = 100)
     private String sifre;
-
-    @Size(max = 100)
-    @Column(length = 100)
     private String ePosta;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column
     private Date dogumTarihi;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column
     private Date kayitTarihi;
 
     public Long getId() {
@@ -58,14 +23,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getVersiyon() {
-        return versiyon;
-    }
-
-    public void setVersiyon(Long versiyon) {
-        this.versiyon = versiyon;
     }
 
     public String getAd() {
