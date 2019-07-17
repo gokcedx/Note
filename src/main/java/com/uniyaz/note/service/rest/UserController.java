@@ -33,8 +33,9 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User findKullaniciById(@PathVariable Long id){
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Kullanıcı Bulunamadı.")); }
+    public UserDto findKullaniciById(@PathVariable Long id){
+        return userService.findById(id);
+    }
 
     @DeleteMapping("/user/{id}")
     public void deleteKullanici(@PathVariable Long id){

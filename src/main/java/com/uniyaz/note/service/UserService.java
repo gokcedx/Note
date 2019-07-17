@@ -1,5 +1,7 @@
 package com.uniyaz.note.service;
 
+import com.uniyaz.note.converter.UserConverter;
+import com.uniyaz.note.dao.UserDao;
 import com.uniyaz.note.domain.User;
 import com.uniyaz.note.dto.UserDto;
 import com.uniyaz.note.repository.UserRepository;
@@ -18,17 +20,19 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public User saveUser(UserDto userDto){
-        User user = new User();
-        user.setId(userDto.getId());
-        user.setAd(userDto.getAd());
-        user.setSoyad(userDto.getSoyad());
-        user.setKullaniciAdi(userDto.getKullaniciAdi());
-        user.setSifre(userDto.getSifre());
-        user.setePosta(userDto.getePosta());
-        user.setDogumTarihi(userDto.getDogumTarihi());
-        user.setKayitTarihi(userDto.getKayitTarihi());
+    @Autowired
+    UserDao userDao;
 
+    public User saveUser(UserDto userDto){
+        UserConverter userConverter = new UserConverter();
+        User user = userConverter.convertToUser(userDto);
         return userRepository.save(user);
+    }
+
+    public UserDto findById(Long userId){
+        User user = userDao.findById(userId);
+        UserConverter userConverter = new UserConverter();
+        UserDto userDto = userConverter.convertToUserDto(user);
+        return userDto;
     }
 }
