@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public UserDto findKullaniciById(@PathVariable Long id){
-        return userService.findById(id);
+        return userService.findUserDtoById(id);
     }
 
     @DeleteMapping("/user/{id}")

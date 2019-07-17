@@ -3,11 +3,13 @@ package com.uniyaz.note.converter;
 import com.uniyaz.note.domain.User;
 import com.uniyaz.note.dto.UserDto;
 import com.uniyaz.note.service.DateService;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Gökçe DOĞANAY
  * @since 0.0.1
  */
+@Component
 public class UserConverter {
 
     public User convertToUser(UserDto userDto){

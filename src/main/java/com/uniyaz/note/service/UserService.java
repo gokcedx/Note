@@ -18,21 +18,27 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     UserDao userDao;
 
+    @Autowired
+    UserConverter userConverter;
+
+    @Autowired
+    UserRepository userRepository;
+
     public User saveUser(UserDto userDto){
-        UserConverter userConverter = new UserConverter();
         User user = userConverter.convertToUser(userDto);
         return userRepository.save(user);
     }
 
-    public UserDto findById(Long userId){
+    public UserDto findUserDtoById(Long userId){
         User user = userDao.findById(userId);
-        UserConverter userConverter = new UserConverter();
         UserDto userDto = userConverter.convertToUserDto(user);
         return userDto;
+    }
+
+    public User findById(Long userId){
+        User user = userDao.findById(userId);
+        return user;
     }
 }
