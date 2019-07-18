@@ -8,7 +8,7 @@ import java.util.Date;
 public class NoteDto {
     private Long id;
     private String konu;
-    private byte[] icerik;
+    private String icerik;
     private Date kayitTarihi;
     private Long begenilmeSayisi;
     private Long userId;
@@ -29,11 +29,11 @@ public class NoteDto {
         this.konu = konu;
     }
 
-    public byte[] getIcerik() {
+    public String getIcerik() {
         return icerik;
     }
 
-    public void setIcerik(byte[] icerik) {
+    public void setIcerik(String icerik) {
         this.icerik = icerik;
     }
 

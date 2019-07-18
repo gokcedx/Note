@@ -31,7 +31,7 @@ public class Note {
 
     @Lob
     @Column
-    private byte[] icerik;
+    private String icerik;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -61,11 +61,11 @@ public class Note {
         this.konu = konu;
     }
 
-    public byte[] getIcerik() {
+    public String getIcerik() {
         return icerik;
     }
 
-    public void setIcerik(byte[] icerik) {
+    public void setIcerik(String icerik) {
         this.icerik = icerik;
     }
 

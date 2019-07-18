@@ -1,9 +1,8 @@
 package com.uniyaz.note.service.rest;
 
-import com.uniyaz.note.dao.NoteDao;
+import com.uniyaz.note.domain.Note;
 import com.uniyaz.note.dto.NoteDto;
 import com.uniyaz.note.repository.NoteRepository;
-import com.uniyaz.note.domain.Note;
 import com.uniyaz.note.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +22,6 @@ public class NoteController {
     @Autowired
     private NoteService noteService;
 
-    @Autowired
-    private NoteDao noteDao;
-
     @PostMapping("/note")
     public Note saveNot(@RequestBody NoteDto noteDto){
         return noteService.saveNote(noteDto);
@@ -37,9 +33,8 @@ public class NoteController {
     }
 
     @GetMapping("/note/{id}")
-    public Note findNotById(@PathVariable Long id){
-        Note note = noteService.findById(id);
-        return note;
+    public NoteDto findNotById(@PathVariable Long id){
+        return noteService.findNoteDtoById(id);
     }
 
     @DeleteMapping("/note/{id}")
