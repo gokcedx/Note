@@ -1,6 +1,5 @@
 package com.uniyaz.note.domain;
 
-import org.hibernate.annotations.ForeignKey;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -41,8 +40,7 @@ public class Note {
     private Long begenilmeSayisi;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USER")
-    @ForeignKey(name = "FK_NOTE_USER")
+    @JoinColumn(name = "ID_USER", foreignKey = @ForeignKey(name = "FK_NOTE_USER"))
     private User user;
 
     public Long getId() {
