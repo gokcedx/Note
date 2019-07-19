@@ -10,6 +10,11 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
 /**
  * @author Kübra VARICI
@@ -30,5 +35,17 @@ public class NoteDao{
         Query query = entityManager.createQuery(hql);
         query.setParameter("id", noteId);
         return (Note) query.getSingleResult();
+    }
+
+    public List<Note> findAll() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Note> query = criteriaBuilder.createQuery(Note.class);
+
+        Root<Note> root = query.from(Note.class);
+        query.select(root);
+
+        TypedQuery<Note> q = entityManager.createQuery(query);
+        return q.getResultList();
     }
 }

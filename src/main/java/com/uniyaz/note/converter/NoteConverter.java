@@ -8,6 +8,9 @@ import com.uniyaz.note.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Kübra VARICI
  */
@@ -46,4 +49,14 @@ public class NoteConverter {
         }
         return noteDto;
     }
+
+    public List<NoteDto> convertToNoteDtoList(List<Note> noteList){
+        List<NoteDto> noteDtoList = new ArrayList<>();
+        for (Note note : noteList) {
+            NoteDto noteDto = convertToNoteDto(note);
+            noteDtoList.add(noteDto);
+        }
+        return noteDtoList;
+    }
+
 }

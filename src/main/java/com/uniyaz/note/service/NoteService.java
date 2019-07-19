@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 /**
  * @author Kübra VARICI
@@ -43,5 +45,10 @@ public class NoteService {
     public Note findById(Long noteId) {
         Note note = noteDao.findById(noteId);
         return note;
+    }
+
+    public List<NoteDto> findAll() {
+        List<Note> noteList = noteDao.findAll();
+        return noteConverter.convertToNoteDtoList(noteList);
     }
 }

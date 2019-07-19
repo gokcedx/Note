@@ -14,6 +14,7 @@ import java.util.List;
  */
 
 @RestController
+@RequestMapping(value="/note")
 public class NoteController {
 
     @Autowired
@@ -22,22 +23,22 @@ public class NoteController {
     @Autowired
     private NoteService noteService;
 
-    @PostMapping("/note")
+    @PostMapping("/save")
     public Note saveNot(@RequestBody NoteDto noteDto){
         return noteService.saveNote(noteDto);
     }
 
-    @GetMapping("/note")
-    public List<Note> findNotlar(){
-        return noteRepository.findAll();
+    @GetMapping("/findAll")
+    public List<NoteDto> findNotlar(){
+        return noteService.findAll();
     }
 
-    @GetMapping("/note/{id}")
+    @GetMapping("/findById/{id}")
     public NoteDto findNotById(@PathVariable Long id){
         return noteService.findNoteDtoById(id);
     }
 
-    @DeleteMapping("/note/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteNotById(@PathVariable Long id){
         noteRepository.deleteById(id);
     }
