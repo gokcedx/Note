@@ -1,10 +1,8 @@
 package com.uniyaz.note.dao;
 
 import com.uniyaz.note.domain.Note;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import com.uniyaz.note.dto.queryfilter.NoteQueryFilterDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -41,10 +39,21 @@ public class NoteDao{
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Note> query = criteriaBuilder.createQuery(Note.class);
-
         Root<Note> root = query.from(Note.class);
         query.select(root);
 
+        TypedQuery<Note> q = entityManager.createQuery(query);
+        return q.getResultList();
+    }
+
+    public List<Note> findByNoteQueryFilterDto(NoteQueryFilterDto noteQueryFilterDto) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Note> query = criteriaBuilder.createQuery(Note.class);
+        Root<Note> root = query.from(Note.class);
+        query.select(root);
+
+        noteQueryFilterDto.addWhereClause(criteriaBuilder, query);
         TypedQuery<Note> q = entityManager.createQuery(query);
         return q.getResultList();
     }

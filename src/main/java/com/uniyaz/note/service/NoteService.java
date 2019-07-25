@@ -4,6 +4,7 @@ import com.uniyaz.note.converter.NoteConverter;
 import com.uniyaz.note.dao.NoteDao;
 import com.uniyaz.note.domain.Note;
 import com.uniyaz.note.dto.NoteDto;
+import com.uniyaz.note.dto.queryfilter.NoteQueryFilterDto;
 import com.uniyaz.note.repository.NoteRepository;
 import com.uniyaz.note.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,11 @@ public class NoteService {
 
     public List<NoteDto> findAll() {
         List<Note> noteList = noteDao.findAll();
+        return noteConverter.convertToNoteDtoList(noteList);
+    }
+
+    public List<NoteDto> findByNoteQueryFilterDto(NoteQueryFilterDto noteQueryFilterDto){
+        List<Note> noteList = noteDao.findByNoteQueryFilterDto(noteQueryFilterDto);
         return noteConverter.convertToNoteDtoList(noteList);
     }
 }

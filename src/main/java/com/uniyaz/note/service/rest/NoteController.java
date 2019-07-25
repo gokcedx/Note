@@ -2,6 +2,7 @@ package com.uniyaz.note.service.rest;
 
 import com.uniyaz.note.domain.Note;
 import com.uniyaz.note.dto.NoteDto;
+import com.uniyaz.note.dto.queryfilter.NoteQueryFilterDto;
 import com.uniyaz.note.repository.NoteRepository;
 import com.uniyaz.note.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,19 @@ public class NoteController {
     @GetMapping("/findById/{id}")
     public NoteDto findNotById(@PathVariable Long id){
         return noteService.findNoteDtoById(id);
+    }
+
+    @GetMapping("/find")
+    public List<NoteDto> find(NoteDto noteDto){
+        NoteQueryFilterDto noteQueryFilterDto = new NoteQueryFilterDto();
+        noteQueryFilterDto.setId(noteDto.getId());
+        noteQueryFilterDto.setKonu(noteDto.getKonu());
+        noteQueryFilterDto.setIcerik(noteDto.getIcerik());
+        noteQueryFilterDto.setKayitTarihi(noteDto.getKayitTarihi());
+        noteQueryFilterDto.setBegenilmeSayisi(noteDto.getBegenilmeSayisi());
+        noteQueryFilterDto.setUserId(noteDto.getUserId());
+
+        return noteService.findByNoteQueryFilterDto(noteQueryFilterDto);
     }
 
     @DeleteMapping("/delete/{id}")
