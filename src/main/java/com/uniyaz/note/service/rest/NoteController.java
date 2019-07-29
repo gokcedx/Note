@@ -39,8 +39,8 @@ public class NoteController {
         return noteService.findNoteDtoById(id);
     }
 
-    @GetMapping("/find")
-    public List<NoteDto> find(NoteDto noteDto){
+    @PostMapping(value = "/find")
+    public List<NoteDto> find(@RequestBody NoteDto noteDto){
         NoteQueryFilterDto noteQueryFilterDto = new NoteQueryFilterDto();
         noteQueryFilterDto.setId(noteDto.getId());
         noteQueryFilterDto.setKonu(noteDto.getKonu());
