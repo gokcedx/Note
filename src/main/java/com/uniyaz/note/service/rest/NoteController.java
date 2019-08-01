@@ -6,6 +6,7 @@ import com.uniyaz.note.dto.queryfilter.NoteQueryFilterDto;
 import com.uniyaz.note.repository.NoteRepository;
 import com.uniyaz.note.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class NoteController {
         return noteService.findNoteDtoById(id);
     }
 
-    @PostMapping(value = "/find")
+    @PostMapping(value = "/find", produces = {MediaType.APPLICATION_XML_VALUE})
     public List<NoteDto> find(@RequestBody NoteDto noteDto){
         NoteQueryFilterDto noteQueryFilterDto = new NoteQueryFilterDto();
         noteQueryFilterDto.setId(noteDto.getId());
@@ -49,7 +50,8 @@ public class NoteController {
         noteQueryFilterDto.setBegenilmeSayisi(noteDto.getBegenilmeSayisi());
         noteQueryFilterDto.setUserId(noteDto.getUserId());
 
-        return noteService.findByNoteQueryFilterDto(noteQueryFilterDto);
+        List<NoteDto> byNoteQueryFilterDto = noteService.findByNoteQueryFilterDto(noteQueryFilterDto);
+        return byNoteQueryFilterDto;
     }
 
     @DeleteMapping("/delete/{id}")
