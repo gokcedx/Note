@@ -2,11 +2,10 @@ package com.uniyaz.note.dao;
 
 import com.uniyaz.note.domain.Note;
 import com.uniyaz.note.dto.queryfilter.NoteQueryFilterDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,11 +19,22 @@ import java.util.List;
 @Repository
 public class NoteDao{
 
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
+//    @Autowired
+//    private EntityManagerFactory entityManagerFactory;
+
+/*  EntityManagerFactory @Autowired ile bağlanırsa ve
+ *  EntityManager bu şekilde oluşturulursa, entityManager.close()
+ *  metoduyla el ile kapatmak gerekecektir. Kapatılmazsa
+ *  bağlantılar açık kalacağı için her queryde yeniden oluşur.
+ *  Bu yüzden max bağlantı sayısını aşar ve hataya düşer.
+ *
+ *  @PersistanceContext EntityManager nesnesini Factory kullanmadan
+ *  oluşturur, bu yüzden el ile kapatmaya gerek kalmaz.
+ */
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public Note findById(Long noteId) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         String hql =
                 "Select note " +
                 "From Note note " +
@@ -36,7 +46,6 @@ public class NoteDao{
     }
 
     public List<Note> findAll() {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Note> query = criteriaBuilder.createQuery(Note.class);
         Root<Note> root = query.from(Note.class);
@@ -47,7 +56,6 @@ public class NoteDao{
     }
 
     public List<Note> findByNoteQueryFilterDto(NoteQueryFilterDto noteQueryFilterDto) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Note> query = criteriaBuilder.createQuery(Note.class);
         Root<Note> root = query.from(Note.class);

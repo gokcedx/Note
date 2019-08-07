@@ -1,11 +1,10 @@
 package com.uniyaz.note.dao;
 
 import com.uniyaz.note.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -15,11 +14,13 @@ import javax.persistence.Query;
 @Repository
 public class UserDao {
 
-    @Autowired
-    EntityManagerFactory entityManagerFactory;
+//    @Autowired
+//    EntityManagerFactory entityManagerFactory;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public User findById(Long userId){
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         String hql = "Select user " +
                      "From User user " +
                      "Where user.id = :id";
