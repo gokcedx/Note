@@ -12,15 +12,7 @@ import org.springframework.web.accept.MappingMediaTypeFileExtensionResolver;
 public class DokumanApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext run = SpringApplication.run(DokumanApplication.class, args);
-		String[] beanDefinitionNames = run.getBeanDefinitionNames();
-//		ApplicationContext appctx = SpringApplication.run(DokumanApplication.class, args);
-//
-//		GreetingServiceImpl bsi =  appcNtx.getBean(GreetingServiceImpl.class);
-//		System.out.println(bsi.getEnglishServiceValue());
-//		System.out.println(bsi.getFrenchService2Value());
-
-
+		SpringApplication.run(DokumanApplication.class, args);
 	}
 
 	@Bean

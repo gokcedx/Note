@@ -14,8 +14,9 @@ import java.util.List;
 /**
  * @author Kübra VARICI
  */
-
-@RestController
+//@Controller
+//@ResponseBody
+@RestController //Controller + ResponseBody
 @RequestMapping(value="/note")
 public class NoteController {
 
@@ -26,7 +27,9 @@ public class NoteController {
     private NoteService noteService;
 
     @PostMapping("/save")
+//    @RequestMapping(value="/note", method = RequestMethod.POST)
     public Note saveNot(@RequestBody NoteDto noteDto){
+//        noteRepository.save();
         return noteService.saveNote(noteDto);
     }
 
